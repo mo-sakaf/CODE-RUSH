@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CODE RUSH | Ultimate Typing Trainer</title>
-    <!-- استيراد الخطوط -->
+    
+    <!-- === Favicon & Web App Manifest Setup (Professional Install) === -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%230a0a0a'/%3E%3Ccircle cx='256' cy='256' r='210' stroke='%23d4af37' stroke-width='25' fill='none' stroke-dasharray='60 30'/%3E%3Cpath d='M170 170 L90 256 L170 342' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M342 170 L422 256 L342 342' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M290 130 L222 382' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-opacity='0.9' fill='none'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230a0a0a'/%3E%3Ccircle cx='256' cy='256' r='210' stroke='%23d4af37' stroke-width='25' fill='none' stroke-dasharray='60 30'/%3E%3Cpath d='M170 170 L90 256 L170 342' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M342 170 L422 256 L342 342' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M290 130 L222 382' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-opacity='0.9' fill='none'/%3E%3C/svg%3E">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="manifest" href='data:application/manifest+json;base64,ewogICJuYW1lIjogIkNvZGUgUnVzaCIsCiAgInNob3J0X25hbWUiOiAiQ29kZSBSdXNoIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYTBhMGEiLAogICJ0aGVtZV9jb2xvciI6ICIjZDRhZjM3IiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sOy4uLihzYW1lIGFzIGFib3ZlKSIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0='>
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* الألوان الأساسية */
             --bg-dark: #0a0a0a;
             --bg-panel: rgba(20, 20, 20, 0.92);
             --accent-gold: #d4af37;
@@ -17,9 +24,7 @@
             --text-muted: #888888;
             --danger: #ff3333;
             --success: #00ff88;
-            
             --current-accent: var(--accent-gold);
-            
             --font-ui: 'Cairo', sans-serif;
             --font-code: 'Fira Code', monospace;
             --glass: blur(12px);
@@ -31,15 +36,15 @@
         ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
         ::-webkit-scrollbar-thumb { background: var(--current-accent); border-radius: 3px; }
 
-        body {
+        html, body {
+            /* تعديل للموبايل: منع التمرير وتثبيت الصفحة */
+            height: 100%;
+            width: 100%;
+            position: fixed; 
+            overflow: hidden;
             background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: var(--font-ui);
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
         }
 
@@ -85,16 +90,22 @@
         .btn-icon { width: 40px; height: 40px; padding: 0; border-radius: 50%; font-family: var(--font-ui); font-size: 1.2rem; }
 
         .btn-close {
-            position: absolute;
-            top: 15px; left: 15px;
+            position: absolute; top: 15px; left: 15px;
             background: transparent; border: none; color: #666; font-size: 1.5rem;
             cursor: pointer; z-index: 10; transition: 0.3s; line-height: 1;
         }
         .btn-close:hover { color: var(--danger); transform: scale(1.1); }
 
         #app {
-            width: 100%; max-width: 1000px; height: 95vh;
-            position: relative; display: flex; flex-direction: column; overflow: hidden;
+            width: 100%; 
+            max-width: 1000px; 
+            /* الارتفاع سيتم ضبطه بواسطة JS ليتوافق مع الكيبورد */
+            height: 100%; 
+            margin: 0 auto;
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden;
         }
 
         .screen {
@@ -136,12 +147,20 @@
         .hud-top {
             display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;
             background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%); z-index: 10;
+            flex-shrink: 0; /* منع الانكماش */
         }
         .stat-group { display: flex; gap: 20px; }
         .stat { font-family: var(--font-code); font-size: 0.85rem; color: #aaa; direction: ltr; }
         .stat span { color: var(--current-accent); font-weight: bold; font-size: 1.1rem; }
 
-        #play-area { flex-grow: 1; position: relative; overflow: hidden; border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); margin: 0 10px; }
+        #play-area { 
+            flex-grow: 1; 
+            position: relative; 
+            overflow: hidden; 
+            border-left: 1px solid rgba(255,255,255,0.05); 
+            border-right: 1px solid rgba(255,255,255,0.05); 
+            margin: 0 10px; 
+        }
 
         .word {
             position: absolute; color: #fff; font-family: var(--font-code); font-size: 1.1rem; padding: 4px 10px;
@@ -153,8 +172,14 @@
         #danger-line.flash { background: var(--danger); box-shadow: 0 0 30px var(--danger); }
 
         .input-bar {
-            padding: 20px; background: rgba(0,0,0,0.8); border-top: 1px solid var(--current-accent);
-            display: flex; justify-content: center; position: relative; z-index: 20;
+            padding: 15px; 
+            background: rgba(0,0,0,0.8); 
+            border-top: 1px solid var(--current-accent);
+            display: flex; 
+            justify-content: center; 
+            position: relative; 
+            z-index: 20;
+            flex-shrink: 0; /* منع الانكماش */
         }
         #code-input {
             width: 100%; max-width: 600px; background: transparent; border: none;
@@ -179,25 +204,10 @@
         body.streamer-mode #app { max-width: 100%; height: 100vh; background: transparent; }
         body.streamer-mode .glass-panel { background: rgba(0,0,0,0.4); backdrop-filter: none; }
 
-        /* --- New Neon Logo Styles --- */
-        .neon-logo-container {
-            margin-bottom: 25px;
-            animation: floatLogo 4s ease-in-out infinite;
-        }
-        .neon-logo {
-            width: 140px;
-            height: 140px;
-            color: var(--current-accent);
-            filter: drop-shadow(0 0 10px var(--accent-glow)) drop-shadow(0 0 20px var(--current-accent));
-        }
-        @keyframes floatLogo {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes rotateRing {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        .neon-logo-container { margin-bottom: 25px; animation: floatLogo 4s ease-in-out infinite; }
+        .neon-logo { width: 140px; height: 140px; color: var(--current-accent); filter: drop-shadow(0 0 10px var(--accent-glow)) drop-shadow(0 0 20px var(--current-accent)); }
+        @keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .logo-ring { transform-origin: center; animation: rotateRing 20s linear infinite; }
 
         .onboarding-step { text-align: center; max-width: 500px; }
@@ -206,17 +216,9 @@
         .dot.active { background: var(--current-accent); }
 
         .developer-credits { margin-top: 30px; display: flex; flex-direction: column; align-items: center; opacity: 0.9; }
-        .logo-img {
-            width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; 
-            filter: drop-shadow(0 0 5px var(--accent-glow)); background: rgba(0,0,0,0.3); border-radius: 50%; 
-            border: 1px dashed var(--accent-color); padding: 5px;
-        }
+        .logo-img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; filter: drop-shadow(0 0 5px var(--accent-glow)); background: rgba(0,0,0,0.3); border-radius: 50%; border: 1px dashed var(--accent-color); padding: 5px; }
         .credits-text { color: var(--accent-color); font-size: 0.9rem; letter-spacing: 1px; font-weight: bold; }
-        .website-link {
-            color: #fff; text-decoration: none; font-size: 0.8rem; margin-top: 5px; font-family: var(--font-code);
-            border: 1px solid rgba(212, 175, 55, 0.3); padding: 4px 12px; border-radius: 20px;
-            transition: all 0.3s; direction: ltr;
-        }
+        .website-link { color: #fff; text-decoration: none; font-size: 0.8rem; margin-top: 5px; font-family: var(--font-code); border: 1px solid rgba(212, 175, 55, 0.3); padding: 4px 12px; border-radius: 20px; transition: all 0.3s; direction: ltr; }
         .website-link:hover { background: var(--accent-color); color: #000; }
         .copyright-year { color: #666; font-size: 0.75rem; margin-top: 5px; font-family: var(--font-code); }
 
@@ -236,68 +238,49 @@
 <body>
 
 <div id="app">
-    <!-- Notification Layer -->
     <div id="notification-area"></div>
 
-    <!-- 1. Onboarding Screen -->
+    <!-- 1. Onboarding -->
     <div id="screen-onboarding" class="screen glass-panel">
         <div class="onboarding-step">
-            <!-- Neon Logo -->
             <div class="neon-logo-container">
                 <svg class="neon-logo" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Outer Ring -->
                     <circle class="logo-ring" cx="100" cy="100" r="90" stroke="currentColor" stroke-width="2" stroke-dasharray="20 10" opacity="0.6"/>
-                    <!-- Inner Hexagon-ish shape -->
                     <path d="M100 20 L170 60 L170 140 L100 180 L30 140 L30 60 Z" stroke="currentColor" stroke-width="4" stroke-opacity="0.8"/>
-                    <!-- Code Brackets -->
                     <path d="M70 70 L40 100 L70 130" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M130 70 L160 100 L130 130" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    <!-- Slash -->
                     <path d="M110 50 L90 150" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
                 </svg>
             </div>
-
             <h2>أهلاً بك في CODE RUSH</h2>
             <h3 style="color: var(--current-accent); margin-bottom: 10px;">Welcome to Code Rush</h3>
             <p style="color: #aaa; margin: 15px 0; line-height: 1.6;">
                 المنصة الأولى لتدريب المبرمجين على سرعة الكتابة.<br>
                 The ultimate typing trainer for developers.
             </p>
-            
             <button class="btn" onclick="UI.nextOnboarding()" style="margin-top: 20px; width: 200px;">NEXT / التالي</button>
-
-            <!-- حقوق المطور -->
             <div class="developer-credits">
-                <!-- استبدل الرابط أدناه بصورتك لاحقاً -->
-                <img src="Image/شعاري الرسمي.png" alt="شعار المطور" class="logo-img" onerror="this.style.display='none'">
-                <a href="https://mo-sakaf.github.io/mo_sakaf/" target="_blank" class="website-link">موقعنا الألكتروني | My website 🌐</a>
-                <div class="copyright-year">  محمد عمر السقاف © 2026 </div>
+                <img src="" alt="شعار المطور" class="logo-img" onerror="this.style.display='none'">
+                <div class="credits-text">محمد عمر السقاف</div>
+                <a href="#" target="_blank" class="website-link">www.your-site.com 🌐</a>
+                <div class="copyright-year">© 2026</div>
             </div>
         </div>
     </div>
 
-    <!-- 2. Main Menu (Options) -->
+    <!-- 2. Menu -->
     <div id="screen-menu" class="screen">
         <div class="glass-panel" style="padding: 25px; width: 95%; max-width: 600px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-            
-            <!-- زر الرجوع -->
             <button class="btn-close" onclick="UI.showScreen('screen-onboarding')" title="Back / رجوع">✕</button>
-
             <div style="text-align: center;">
                 <div class="career-badge" id="career-display">TRAINEE | XP: 0</div>
                 <h1 class="hero-title">CODE RUSH</h1>
                 <p style="letter-spacing: 1px; color: var(--current-accent); font-family: var(--font-code); font-size: 0.75rem;">ULTIMATE TYPING TRAINER</p>
             </div>
-
-            <!-- اختيار اللغة -->
             <div style="width: 100%;">
                 <label style="color: #888; font-size: 0.7rem; display: block; margin-bottom: 6px; font-family: var(--font-ui);">LANGUAGE / اللغة</label>
-                <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px;" id="lang-selector">
-                    <!-- Buttons generated by JS -->
-                </div>
+                <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px;" id="lang-selector"></div>
             </div>
-
-            <!-- اختيار النمط -->
             <div class="menu-grid" id="mode-selector">
                 <div class="option-card selected glass-panel" onclick="Game.setMode('classic', this)">
                     <h3>Classic</h3>
@@ -316,15 +299,11 @@
                     <p>مقتطفات (Code)</p>
                 </div>
             </div>
-
-            <!-- الصعوبة -->
             <div style="display: flex; gap: 10px; justify-content: center; width: 100%;">
                 <button class="btn btn-sm" onclick="Game.setDifficulty('easy', this)" id="btn-easy">Easy / سهل</button>
                 <button class="btn btn-sm" onclick="Game.setDifficulty('medium', this)" id="btn-medium" style="background: var(--current-accent); color: #000;">Medium / متوسط</button>
                 <button class="btn btn-sm" onclick="Game.setDifficulty('hard', this)" id="btn-hard">Hard / صعب</button>
             </div>
-
-            <!-- الإجراءات الرئيسية -->
             <div style="display: flex; gap: 10px; justify-content: center; margin-top: 5px; width: 100%;">
                 <button class="btn" onclick="Game.start()" style="flex-grow: 1; font-size: 1rem;">START MISSION / ابدأ المهمة</button>
                 <button class="btn btn-icon" title="Settings / إعدادات" onclick="UI.showSettings()">⚙️</button>
@@ -333,7 +312,7 @@
         </div>
     </div>
 
-    <!-- 3. واجهة اللعب -->
+    <!-- 3. Game UI -->
     <div id="game-ui">
         <div class="hud-top">
             <div class="stat-group">
@@ -344,21 +323,15 @@
                 <div class="stat">SCORE <span style="font-size:0.7em; color:#666;">/ نقاط</span>: <span id="hud-score">0</span></div>
                 <div class="stat"><span id="hud-resource-label">LIVES: </span><span id="hud-resource">5</span></div>
             </div>
-            <!-- زر الإيقاف -->
             <button class="btn btn-sm" onclick="Game.togglePause()">II</button>
         </div>
-
-        <div id="play-area">
-            <!-- الكلمات تسقط هنا -->
-            <div id="danger-line"></div>
-        </div>
-
+        <div id="play-area"><div id="danger-line"></div></div>
         <div class="input-bar">
             <input type="text" id="code-input" placeholder="Type here... / اكتب الكود هنا" autocomplete="off" spellcheck="false">
         </div>
     </div>
 
-    <!-- 4. شاشة التوقف -->
+    <!-- 4. Pause -->
     <div id="screen-pause" class="screen glass-panel" style="background: rgba(0,0,0,0.85);">
         <h1 style="font-size: 2.5rem; color: var(--current-accent); font-family: var(--font-code);">PAUSED / مؤقت</h1>
         <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 25px; width: 280px;">
@@ -368,26 +341,15 @@
         </div>
     </div>
 
-    <!-- 5. شاشة النتائج -->
+    <!-- 5. Results -->
     <div id="screen-results" class="screen glass-panel">
         <h2 style="color: #fff; font-size: 1.2rem;">MISSION COMPLETE / اكتملت المهمة</h2>
         <h1 id="res-title" style="font-size: 3rem; color: var(--current-accent); font-family: var(--font-code); margin: 10px 0;">0 PTS</h1>
-        
         <div class="stats-grid" style="width: 90%; max-width: 600px;">
-            <div class="stat-card">
-                <p>WPM / سرعة</p>
-                <h3 id="res-wpm">0</h3>
-            </div>
-            <div class="stat-card">
-                <p>ACC / دقة</p>
-                <h3 id="res-acc">0%</h3>
-            </div>
-            <div class="stat-card">
-                <p>STREAK / تتابع</p>
-                <h3 id="res-streak">0</h3>
-            </div>
+            <div class="stat-card"><p>WPM / سرعة</p><h3 id="res-wpm">0</h3></div>
+            <div class="stat-card"><p>ACC / دقة</p><h3 id="res-acc">0%</h3></div>
+            <div class="stat-card"><p>STREAK / تتابع</p><h3 id="res-streak">0</h3></div>
         </div>
-
         <div style="display: flex; gap: 10px; margin-top: 20px;">
             <button class="btn" onclick="Game.restart()">PLAY AGAIN / العب مجدداً</button>
             <button class="btn" onclick="UI.shareResult()">SHARE / نشر</button>
@@ -395,7 +357,7 @@
         </div>
     </div>
     
-    <!-- شاشة الإعدادات -->
+    <!-- Settings -->
     <div id="screen-settings" class="screen glass-panel">
         <h2 style="font-family: var(--font-code);">SETTINGS / الإعدادات</h2>
         <div style="text-align: left; width: 320px; margin: 20px 0;">
@@ -409,15 +371,26 @@
         <button class="btn" onclick="UI.hideSettings()">SAVE & CLOSE / حفظ وإغلاق</button>
     </div>
 
-    <!-- قماش مخفي للمشاركة -->
     <canvas id="share-canvas" width="800" height="400" style="display:none;"></canvas>
-
 </div>
 
 <script>
 /**
- * CODE RUSH ENGINE - FINAL PRODUCTION BUILD
+ * CODE RUSH ENGINE - MOBILE KEYBOARD FIX
  */
+
+// Handle Viewport Height for Mobile Keyboards
+const setAppHeight = () => {
+    const doc = document.documentElement;
+    // Set --vh custom property to the root of the document
+    doc.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    // Ensure main app container fits viewport
+    document.getElementById('app').style.height = `${window.innerHeight}px`;
+};
+
+// Listeners for Resize (Keyboard open/close)
+window.addEventListener('resize', setAppHeight);
+window.addEventListener('orientationchange', setAppHeight);
 
 // --- 1. Data Store ---
 const DB = {
@@ -477,47 +450,29 @@ const AudioSynth = {
     playKey() { this.playTone(600 + Math.random()*200, 'sine', 0.05, 0.05); },
     playExplode() { this.playTone(100, 'square', 0.2, 0.1); this.playTone(50, 'sawtooth', 0.3, 0.1); },
     playError() { this.playTone(150, 'sawtooth', 0.3, 0.2); },
-    playAchieve() { 
-        [440, 554, 659].forEach((f, i) => setTimeout(() => this.playTone(f, 'sine', 0.4, 0.2), i*100));
-    }
+    playAchieve() { [440, 554, 659].forEach((f, i) => setTimeout(() => this.playTone(f, 'sine', 0.4, 0.2), i*100)); }
 };
 
 // --- 3. Game Logic ---
 const Game = {
     state: {
-        mode: 'classic',
-        lang: 'js',
-        difficulty: 'medium',
-        isPlaying: false,
-        isPaused: false,
-        score: 0,
-        words: [],
-        lastSpawn: 0,
-        startTime: 0,
-        resources: 5,
-        hits: 0,
-        misses: 0,
-        streak: 0,
-        maxStreak: 0,
-        charsTyped: 0
+        mode: 'classic', lang: 'js', difficulty: 'medium', isPlaying: false, isPaused: false,
+        score: 0, words: [], lastSpawn: 0, startTime: 0, resources: 5,
+        hits: 0, misses: 0, streak: 0, maxStreak: 0, charsTyped: 0
     },
     settings: { speedMult: 1, spawnRate: 2000, pointMult: 1 },
     rafId: null,
 
     init() {
+        setAppHeight(); // Mobile Fix Init
         Career.load();
         UI.init();
         
-        if (!localStorage.getItem('cr_onboarding')) {
-            UI.showScreen('screen-onboarding');
-        } else {
-            UI.showScreen('screen-menu');
-        }
+        if (!localStorage.getItem('cr_onboarding')) UI.showScreen('screen-onboarding');
+        else UI.showScreen('screen-menu');
         
         document.getElementById('code-input').addEventListener('input', (e) => this.checkInput(e.target.value));
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') this.togglePause();
-        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') this.togglePause(); });
     },
 
     setMode(mode, el) {
@@ -540,7 +495,6 @@ const Game = {
         const color = DB.langs[lang].color;
         document.documentElement.style.setProperty('--current-accent', color);
         document.documentElement.style.setProperty('--accent-glow', color + '4d');
-        
         document.querySelectorAll('.lang-btn').forEach(b => b.style.borderColor = 'transparent');
         document.getElementById(`lang-btn-${lang}`).style.borderColor = '#fff';
     },
@@ -549,33 +503,24 @@ const Game = {
         AudioSynth.init();
         this.resetState();
         this.configureDifficulty();
-        
         UI.showScreen('game-ui');
         document.getElementById('game-ui').classList.add('visible');
         document.getElementById('code-input').focus();
-        
         this.state.isPlaying = true;
         this.state.startTime = Date.now();
         this.loop();
     },
 
     resetState() {
-        this.state.score = 0;
-        this.state.words = [];
-        this.state.hits = 0; this.state.misses = 0;
-        this.state.streak = 0; this.state.maxStreak = 0;
-        this.state.charsTyped = 0;
+        this.state.score = 0; this.state.words = []; this.state.hits = 0; this.state.misses = 0;
+        this.state.streak = 0; this.state.maxStreak = 0; this.state.charsTyped = 0;
         document.getElementById('play-area').innerHTML = '<div id="danger-line"></div>';
         document.getElementById('code-input').value = '';
-        
-        if (this.state.mode === 'timeAttack') this.state.resources = 60;
-        else this.state.resources = 5;
-        
+        if (this.state.mode === 'timeAttack') this.state.resources = 60; else this.state.resources = 5;
         UI.updateHUD();
     },
 
     configureDifficulty() {
-        // Adjusted Speeds: Easy is significantly slower now
         const diffs = {
             easy: { speed: 0.5, rate: 3000, mult: 1 },
             medium: { speed: 1.5, rate: 1800, mult: 1.5 },
@@ -585,14 +530,12 @@ const Game = {
         this.settings.speedMult = conf.speed;
         this.settings.spawnRate = conf.rate;
         this.settings.pointMult = conf.mult;
-        
         if (this.state.mode === 'endless') this.settings.spawnRate = 2000;
         if (this.state.mode === 'snippets') this.settings.speedMult *= 0.5;
     },
 
     spawnWord() {
         if (!DB.langs[this.state.lang]) this.state.lang = 'js';
-
         let text;
         if (this.state.mode === 'snippets') {
             const list = DB.snippets[this.state.lang] || DB.snippets.generic;
@@ -601,41 +544,29 @@ const Game = {
             const list = DB.langs[this.state.lang].words;
             text = list[Math.floor(Math.random() * list.length)];
         }
-
         if (this.state.words.some(w => w.text === text)) return;
 
         const el = document.createElement('div');
         el.className = 'word';
         el.textContent = text;
-        
         const areaWidth = document.getElementById('play-area').clientWidth;
         const x = Math.max(50, Math.random() * (areaWidth - 150) + 50);
-        
-        el.style.left = x + 'px';
-        el.style.top = '-40px';
+        el.style.left = x + 'px'; el.style.top = '-40px';
         document.getElementById('play-area').appendChild(el);
 
         let speed = (Math.random() * 0.5 + 0.5) * this.settings.speedMult;
-        if (this.state.mode === 'endless') {
-            speed += (this.state.score / 2000); 
-        }
-
+        if (this.state.mode === 'endless') speed += (this.state.score / 2000); 
         this.state.words.push({ el, text, x, y: -40, speed });
     },
 
     loop() {
         if (!this.state.isPlaying || this.state.isPaused) return;
-        
         const now = Date.now();
         const delta = (now - this.state.lastSpawn);
-
         let rate = this.settings.spawnRate;
         if (this.state.mode === 'endless') rate = Math.max(500, rate - (this.state.score / 15));
         
-        if (delta > rate) {
-            this.spawnWord();
-            this.state.lastSpawn = now;
-        }
+        if (delta > rate) { this.spawnWord(); this.state.lastSpawn = now; }
 
         if (this.state.mode === 'timeAttack') {
             const elapsed = (now - this.state.startTime) / 1000;
@@ -653,24 +584,18 @@ const Game = {
             const w = this.state.words[i];
             w.y += w.speed;
             w.el.style.transform = `translate(-50%, ${w.y}px)`;
-
             if (w.y > dangerY - 100) dangerActive = true;
-
-            if (w.y > dangerY) {
-                this.handleMiss(i);
-            }
+            if (w.y > dangerY) this.handleMiss(i);
         }
 
         const dl = document.getElementById('danger-line');
         if (dangerActive) dl.classList.add('flash'); else dl.classList.remove('flash');
-
         this.rafId = requestAnimationFrame(() => this.loop());
     },
 
     checkInput(val) {
         AudioSynth.playKey();
         const matchIdx = this.state.words.findIndex(w => w.text === val);
-
         if (matchIdx !== -1) {
             this.handleHit(matchIdx);
             document.getElementById('code-input').value = '';
@@ -679,24 +604,16 @@ const Game = {
 
     handleHit(idx) {
         const word = this.state.words[idx];
-        
         word.el.style.color = 'var(--success)';
         word.el.style.transform += ' scale(1.5)';
         word.el.style.opacity = '0';
         UI.createParticles(word.x, word.y);
-        
         this.state.words.splice(idx, 1);
-        
-        setTimeout(() => {
-            if (word.el.parentNode) word.el.remove();
-        }, 200);
-        
+        setTimeout(() => { if (word.el.parentNode) word.el.remove(); }, 200);
         this.state.score += Math.floor(10 * this.settings.pointMult);
-        this.state.hits++;
-        this.state.streak++;
+        this.state.hits++; this.state.streak++;
         if (this.state.streak > this.state.maxStreak) this.state.maxStreak = this.state.streak;
         this.state.charsTyped += word.text.length;
-
         AudioSynth.playExplode();
         UI.updateHUD();
         Career.checkInGame(this.state);
@@ -706,14 +623,11 @@ const Game = {
         const word = this.state.words[idx];
         if(word.el.parentNode) word.el.remove();
         this.state.words.splice(idx, 1);
-        
         AudioSynth.playError();
         this.state.misses++;
         this.state.streak = 0;
-
         document.body.style.boxShadow = 'inset 0 0 50px var(--danger)';
         setTimeout(() => document.body.style.boxShadow = 'none', 100);
-
         if (this.state.mode !== 'timeAttack') {
             this.state.resources--;
             if (this.state.resources <= 0) this.gameOver();
@@ -724,12 +638,10 @@ const Game = {
     gameOver() {
         this.state.isPlaying = false;
         cancelAnimationFrame(this.rafId);
-        
         const timeMins = (Date.now() - this.state.startTime) / 60000;
         const wpm = Math.round((this.state.charsTyped / 5) / (timeMins || 0.01));
         const total = this.state.hits + this.state.misses;
         const acc = total === 0 ? 0 : Math.round((this.state.hits / total) * 100);
-        
         Career.saveSession(this.state.score, wpm, acc);
         UI.showResults(this.state.score, wpm, acc, this.state.maxStreak);
     },
@@ -737,15 +649,12 @@ const Game = {
     togglePause() {
         if (!this.state.isPlaying) return;
         this.state.isPaused = !this.state.isPaused;
-        
         if (this.state.isPaused) {
             cancelAnimationFrame(this.rafId);
             UI.showScreen('screen-pause');
         } else {
-            // Restore visibility logic
             UI.showScreen('game-ui');
             document.getElementById('game-ui').classList.add('visible');
-            
             this.state.lastSpawn = Date.now();
             this.loop();
             document.getElementById('code-input').focus();
@@ -761,7 +670,7 @@ const Game = {
     }
 };
 
-// --- 4. Career & Stats ---
+// --- 4. Career System ---
 const Career = {
     data: { totalScore: 0, highScore: 0, gamesPlayed: 0, achievements: [] },
     load() {
@@ -797,7 +706,7 @@ const Career = {
     }
 };
 
-// --- 5. UI Manager ---
+// --- 5. UI ---
 const UI = {
     init() {
         const container = document.getElementById('lang-selector');
