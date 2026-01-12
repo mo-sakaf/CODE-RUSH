@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CODE RUSH | Ultimate Typing Trainer</title>
     
-    <!-- === Favicon & Web App Manifest Setup (Professional Install) === -->
+    <!-- === Favicon & Web App Manifest (Professional Setup) === -->
+    <!-- 1. أيقونة المتصفح -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%230a0a0a'/%3E%3Ccircle cx='256' cy='256' r='210' stroke='%23d4af37' stroke-width='25' fill='none' stroke-dasharray='60 30'/%3E%3Cpath d='M170 170 L90 256 L170 342' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M342 170 L422 256 L342 342' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M290 130 L222 382' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-opacity='0.9' fill='none'/%3E%3C/svg%3E">
+    
+    <!-- 2. أيقونة أبل (iOS) -->
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230a0a0a'/%3E%3Ccircle cx='256' cy='256' r='210' stroke='%23d4af37' stroke-width='25' fill='none' stroke-dasharray='60 30'/%3E%3Cpath d='M170 170 L90 256 L170 342' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M342 170 L422 256 L342 342' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M290 130 L222 382' stroke='%23d4af37' stroke-width='35' stroke-linecap='round' stroke-opacity='0.9' fill='none'/%3E%3C/svg%3E">
+    
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0a0a0a">
-    <link rel="manifest" href='data:application/manifest+json;base64,ewogICJuYW1lIjogIkNvZGUgUnVzaCIsCiAgInNob3J0X25hbWUiOiAiQ29kZSBSdXNoIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYTBhMGEiLAogICJ0aGVtZV9jb2xvciI6ICIjZDRhZjM3IiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sOy4uLihzYW1lIGFzIGFib3ZlKSIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0='>
+    
+    <!-- 3. ملف Manifest الكامل (مدمج مع الصورة للإصلاح) -->
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Code%20Rush%22%2C%22short_name%22%3A%22Code%20Rush%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a0a%22%2C%22theme_color%22%3A%22%23d4af37%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'100'%20fill%3D'%25230a0a0a'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'256'%20r%3D'210'%20stroke%3D'%2523d4af37'%20stroke-width%3D'25'%20fill%3D'none'%20stroke-dasharray%3D'60%2030'%2F%253E%253Cpath%20d%3D'M170%20170%20L90%20256%20L170%20342'%20stroke%3D'%2523d4af37'%20stroke-width%3D'35'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%20fill%3D'none'%2F%253E%253Cpath%20d%3D'M342%20170%20L422%20256%20L342%20342'%20stroke%3D'%2523d4af37'%20stroke-width%3D'35'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%20fill%3D'none'%2F%253E%253Cpath%20d%3D'M290%20130%20L222%20382'%20stroke%3D'%2523d4af37'%20stroke-width%3D'35'%20stroke-linecap%3D'round'%20stroke-opacity%3D'0.9'%20fill%3D'none'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -260,6 +266,7 @@
             </p>
             <button class="btn" onclick="UI.nextOnboarding()" style="margin-top: 20px; width: 200px;">NEXT / التالي</button>
             <div class="developer-credits">
+                <!-- ضع رابط صورة الشعار هنا في src -->
                 <img src="" alt="شعار المطور" class="logo-img" onerror="this.style.display='none'">
                 <div class="credits-text">محمد عمر السقاف</div>
                 <a href="#" target="_blank" class="website-link">www.your-site.com 🌐</a>
